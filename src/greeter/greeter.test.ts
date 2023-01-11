@@ -1,6 +1,6 @@
-import { Delays, greeter } from '../src/main.js';
+import { Delays, greeter } from './greeter.js';
 
-describe('greeter function', () => {
+describe('delayed-hello', () => {
   const name = 'John';
   let hello: string;
 
