@@ -9,6 +9,7 @@ export default {
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(m)?ts$',
   coverageDirectory: 'coverage',
+  clearMocks: true,
   collectCoverageFrom: [
     'src/**/*.ts',
     'src/**/*.mts',
