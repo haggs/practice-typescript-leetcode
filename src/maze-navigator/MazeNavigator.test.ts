@@ -16,8 +16,36 @@ const START = { x: 0, y: 1 };
 const END = { x: 7, y: 8 };
 
 describe('MazeNavigator', () => {
-  it('renderMazes renders correctly', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('renders maze correctly', () => {
     const navigator = new MazeNavigator(MAZE, START, END);
+
+    navigator.step();
+    navigator.step();
+    navigator.step();
+
+    const expected = `
+1 1 1 1 1 1 1 1 1 
+* * 0 0 0 0 0 0 1 
+1 * 1 0 1 0 1 0 1 
+1 $ 1 0 1 0 1 0 1 
+1 0 1 0 1 0 1 0 1 
+1 0 1 0 1 0 1 0 1 
+1 0 1 0 1 0 1 0 1 
+1 0 1 0 1 0 1 0 1 
+1 1 1 1 1 1 1 0 1 
+`;
+
+    expect(navigator.renderMaze()).toEqual(expected);
+  });
+
+  it('prints correctly', () => {
+    const consoleLogSpy = jest.spyOn(console, 'log');
+    const navigator = new MazeNavigator(MAZE, START, END);
+    navigator.print();
 
     const expected = `
 1 1 1 1 1 1 1 1 1 
@@ -30,7 +58,8 @@ $ 0 0 0 0 0 0 0 1
 1 0 1 0 1 0 1 0 1 
 1 1 1 1 1 1 1 0 1 
 `;
-    expect(navigator.renderMaze()).toEqual(expected);
+
+    expect(consoleLogSpy).toHaveBeenCalledWith(expected);
   });
 
   describe('getNumberOfStepsToExit', () => {
