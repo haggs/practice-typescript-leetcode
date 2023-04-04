@@ -5,7 +5,6 @@
  * @returns a new Promise that resolves when all input promises are resolved or rejects as soon as any fail
  */
 export function promiseAll<T>(promises: Promise<T>[]): Promise<T[]> {
-  promises;
   return new Promise((resolve, reject) => {
     const resolvedData = [];
     let resolvedCount = 0;
@@ -25,8 +24,3 @@ export function promiseAll<T>(promises: Promise<T>[]): Promise<T[]> {
     }
   });
 }
-
-promiseAll([
-  new Promise((resolve) => resolve('hi')),
-  new Promise((resolve) => resolve(1)),
-]);
