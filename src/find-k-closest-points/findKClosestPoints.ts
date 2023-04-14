@@ -16,17 +16,21 @@ export function findKClosestPoints(
   k: number,
   origin: Point,
 ): Point[] {
-  const minHeap = new MinHeap();
+  if (!points.length) {
+    return [];
+  }
+
+  const minHeap = new MinHeap<Point>();
 
   for (const point of points) {
     const distance = getDistanceBetweenPoints(point, origin);
-    minHeap.insert(distance);
+    minHeap.insert(distance, point);
   }
 
   const kClosestPoints = [];
 
   while (kClosestPoints.length < k) {
-    kClosestPoints.push(minHeap.pop());
+    kClosestPoints.push(minHeap.pop().data);
   }
 
   return kClosestPoints;

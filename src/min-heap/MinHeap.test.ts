@@ -9,8 +9,9 @@ describe('MinHeap', () => {
       heap.insert(50);
 
       const results = [heap.pop(), heap.pop(), heap.pop()];
+      const expected = [{ value: 0 }, { value: 50 }, { value: 100 }];
 
-      expect(results).toEqual([0, 50, 100]);
+      expect(results).toEqual(expected);
     });
 
     it('returns null when there is nothing in the heap', () => {
