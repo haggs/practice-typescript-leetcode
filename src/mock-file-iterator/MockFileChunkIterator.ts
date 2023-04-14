@@ -13,11 +13,13 @@ export class MockFileChunkIterator {
     for (let i = 0; i < fileContents.length; i += chunkSizeChars) {
       this.data.push(fileContents.slice(i, i + chunkSizeChars));
     }
-    this.data.push(null);
     this.index = 0;
   }
 
   next(): string | null {
-    return this.index >= this.data.length ? null : this.data[this.index++];
+    if (this.index === this.data.length) {
+      return null;
+    }
+    return this.data[this.index++];
   }
 }

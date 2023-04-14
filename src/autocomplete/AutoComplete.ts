@@ -1,22 +1,16 @@
-class AutocompleteTrieNode {
-  public _children: AutocompleteTrieNode[];
+import { TreeNode } from '../common/TreeNode.js';
 
-  constructor(public character: string = '', public isEndOfWord = false) {
-    this._children = Array(26);
-  }
+class AutocompleteTrieNode extends TreeNode<string> {
+  public children: AutocompleteTrieNode[] = Array(26);
 
-  get children() {
-    return this._children;
+  constructor(value = '', public isEndOfWord = false) {
+    super(value);
   }
 
   private validateChild(character: string) {
-    if (character.length !== 1) {
-      throw new Error('addChild requires "character" to be of length 1');
-    }
-
     const index = character.charCodeAt(0) - 'a'.charCodeAt(0);
 
-    if (index < 0 || index >= this._children.length) {
+    if (index < 0 || index >= this.children.length) {
       throw new Error(
         'addChild requires "character" to be a lowercase English letter',
       );
@@ -28,7 +22,7 @@ class AutocompleteTrieNode {
     const index = character.charCodeAt(0) - 'a'.charCodeAt(0);
     const newNode = new AutocompleteTrieNode(character);
 
-    this._children[index] = newNode;
+    this.children[index] = newNode;
 
     return newNode;
   }
@@ -36,7 +30,7 @@ class AutocompleteTrieNode {
   getChild(character: string): AutocompleteTrieNode | undefined {
     this.validateChild(character);
     const index = character.charCodeAt(0) - 'a'.charCodeAt(0);
-    return this._children[index];
+    return this.children[index];
   }
 }
 
@@ -99,13 +93,13 @@ export class AutoComplete {
     prefix: string,
   ) {
     if (currentNode.isEndOfWord) {
-      result.push(prefix + currentNode.character);
+      result.push(prefix + currentNode.value);
     }
     for (const child in currentNode.children) {
       this.dfsHelper(
         currentNode.children[child],
         result,
-        prefix + currentNode.character,
+        prefix + currentNode.value,
       );
     }
   }

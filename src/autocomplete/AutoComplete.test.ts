@@ -7,10 +7,18 @@ describe('Autocomplete', () => {
     expect(autocomplete.contains('grand')).toBe(true);
   });
 
-  it('insert throws an error if word contains non-lowercase or non-english character', () => {
-    const autocomplete = new AutoComplete();
-    const insert = () => autocomplete.insert('*!A');
-    expect(insert).toThrow();
+  describe('insert', () => {
+    it('throws an error if word contains a non-english character', () => {
+      const autocomplete = new AutoComplete();
+      const insert = () => autocomplete.insert('*abc');
+      expect(insert).toThrow();
+    });
+
+    it('throws an error if word contains a non lowercase character', () => {
+      const autocomplete = new AutoComplete();
+      const insert = () => autocomplete.insert('Abc');
+      expect(insert).toThrow();
+    });
   });
 
   describe('contains', () => {
