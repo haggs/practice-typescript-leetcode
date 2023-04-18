@@ -5,6 +5,6 @@ describe('containsBadWord', () => {
     expect(containsBadWord('them@ddest')).toBe(true);
     expect(containsBadWord('theb@ddest')).toBe(true);
     expect(containsBadWord('k|11y0urM0th3r')).toBe(true);
-    expect(containsBadWord('frank')).toBe(false);
+    expect(containsBadWord('mud')).toBe(false);
   });
 });

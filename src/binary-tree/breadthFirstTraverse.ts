@@ -16,5 +16,5 @@ export function breadthFirstTraverse<T>(head: BinaryNode<T>, value: T): T[] {
     }
   }
 
-  return path;
+  return [];
 }

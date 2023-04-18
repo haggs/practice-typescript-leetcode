@@ -6,9 +6,9 @@ describe('inOrderTraverse', () => {
     /**
      *         a
      *        / \
-     *       b   e
-     *      / \
-     *     d   c
+     *       b   d
+     *      /   /
+     *     c   e
      */
     const a = new BinaryNode('a');
     const b = new BinaryNode('b');
@@ -17,12 +17,12 @@ describe('inOrderTraverse', () => {
     const e = new BinaryNode('e');
 
     a.left = b;
-    a.right = e;
-    b.left = d;
-    b.right = c;
+    a.right = d;
+    b.left = c;
+    d.left = e;
 
     const path = inOrderTraverse(a, 'e');
 
-    expect(path).toEqual(['d', 'b', 'c', 'a', 'e']);
+    expect(path).toEqual(['c', 'b', 'a', 'e']);
   });
 });

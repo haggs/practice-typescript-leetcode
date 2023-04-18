@@ -25,4 +25,28 @@ describe('breadthFirstTraverse', () => {
 
     expect(path).toEqual(['a', 'b', 'd', 'c', 'e']);
   });
+
+  it('returns an empty path when value is not found', () => {
+    /**
+     *         a
+     *        / \
+     *       b   d
+     *      /     \
+     *     c       e
+     */
+    const a = new BinaryNode('a');
+    const b = new BinaryNode('b');
+    const c = new BinaryNode('c');
+    const d = new BinaryNode('d');
+    const e = new BinaryNode('e');
+
+    a.left = b;
+    a.right = d;
+    b.left = c;
+    d.right = e;
+
+    const path = breadthFirstTraverse(a, 'f');
+
+    expect(path).toEqual([]);
+  });
 });
