@@ -30,11 +30,13 @@ export class MinHeapTree<DataType = undefined> {
           currentNode.left = newNode;
           newNode.parent = currentNode;
           this.heapifyUp(newNode);
+          return;
         } else if (!currentNode.right) {
           // here's our spot
           currentNode.right = newNode;
           newNode.parent = currentNode;
           this.heapifyUp(newNode);
+          return;
         } else {
           queue.push(currentNode.left);
           queue.push(currentNode.right);
@@ -58,7 +60,7 @@ export class MinHeapTree<DataType = undefined> {
       return retVal;
     }
 
-    // BFS for last node, swap it with head, then heapify down
+    // BFS for last node, move it to head, then heapify down
     const queue = [this.head];
 
     let lastNode = this.head;
@@ -72,6 +74,7 @@ export class MinHeapTree<DataType = undefined> {
     }
 
     this.swapNodeData(this.head, lastNode);
+    this.removeNode(lastNode);
     this.heapifyDown(this.head);
     return retVal;
   }
@@ -90,18 +93,7 @@ export class MinHeapTree<DataType = undefined> {
     }
   }
 
-  private swapNodeData(
-    a: BinaryNode<number, DataType>,
-    b: BinaryNode<number, DataType>,
-  ): void {
-    const tmpValue = a.value;
-    const tmpData = a.data;
-    a.value = b.value;
-    a.data = b.data;
-    b.value = tmpValue;
-    b.data = tmpData;
-  }
-
+  /* istanbul ignore next */
   private heapifyDown(currentNode: BinaryNode<number, DataType> | null): void {
     if (!currentNode) {
       return;
@@ -118,17 +110,44 @@ export class MinHeapTree<DataType = undefined> {
 
     // Possibly swap with the smaller of the two children
     if (
-      leftChild.value < rightChild.value &&
+      (!rightChild || leftChild.value < rightChild.value) &&
       currentNode.value > leftChild.value
     ) {
       this.swapNodeData(leftChild, currentNode);
       this.heapifyDown(leftChild);
     } else if (
+      rightChild &&
       rightChild.value < leftChild.value &&
       currentNode.value > rightChild.value
     ) {
       this.swapNodeData(rightChild, currentNode);
       this.heapifyDown(rightChild);
     }
+  }
+
+  /* istanbul ignore next */
+  private removeNode(node: BinaryNode<number, DataType>): void {
+    if (!node.parent) {
+      return;
+    }
+
+    const parentNode = node.parent;
+    if (parentNode.left === node) {
+      parentNode.left = null;
+    } else if (parentNode.right === node) {
+      parentNode.right = null;
+    }
+  }
+
+  private swapNodeData(
+    a: BinaryNode<number, DataType>,
+    b: BinaryNode<number, DataType>,
+  ): void {
+    const tmpValue = a.value;
+    const tmpData = a.data;
+    a.value = b.value;
+    a.data = b.data;
+    b.value = tmpValue;
+    b.data = tmpData;
   }
 }

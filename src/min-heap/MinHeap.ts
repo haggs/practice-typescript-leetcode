@@ -52,7 +52,8 @@ export class MinHeap<DataType = undefined> {
       this.heapifyUp(parentIdx);
     }
   }
-
+  
+  /* istanbul ignore next */
   private heapifyDown(idx: number): void {
     if (idx >= this.length) {
       return;

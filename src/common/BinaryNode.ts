@@ -5,7 +5,7 @@ export class BinaryNode<ValueType = number, DataType = undefined> {
   constructor(
     public value: ValueType,
     public data?: DataType,
-    public parent?: BinaryNode<ValueType, DataType>,
+    public parent: BinaryNode<ValueType, DataType> | null = null,
   ) {
     this.left = null;
     this.right = null;

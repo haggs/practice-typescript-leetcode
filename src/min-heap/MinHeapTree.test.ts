@@ -7,12 +7,22 @@ describe('MinHeapTree', () => {
       heap.insert(100);
       heap.insert(0);
       heap.insert(50);
+      heap.insert(75);
 
-      const results = [heap.pop(), heap.pop(), heap.pop(), heap.pop()];
+      const results = [
+        heap.pop(), 
+        heap.pop(), 
+        heap.pop(), 
+        heap.pop(), 
+        heap.pop()
+      ];
+      
       const expected = [
         { value: 0, data: undefined },
         { value: 50, data: undefined },
+        { value: 75, data: undefined },
         { value: 100, data: undefined },
+        null
       ];
 
       expect(results).toEqual(expected);

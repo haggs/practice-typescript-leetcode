@@ -1,4 +1,4 @@
-import { powerset } from './powerset';
+import { powerset } from './powerset.js';
 
 describe('powerset', () => {
   it('returns the correct powerset for []', () => {
