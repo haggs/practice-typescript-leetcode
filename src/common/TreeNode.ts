@@ -1,3 +1,6 @@
 export class TreeNode<T> {
-  constructor(public value: T, public children: TreeNode<T>[] = []) {}
+  public children: TreeNode<T>[];
+  constructor(public value: T, public parent?: TreeNode<T>) {
+    this.children = [];
+  }
 }

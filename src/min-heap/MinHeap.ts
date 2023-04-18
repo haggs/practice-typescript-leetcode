@@ -1,10 +1,7 @@
-export type HeapElement<T> = {
-  value: number;
-  data?: T;
-};
+import { HeapElement } from './HeapElement.js';
 
-export class MinHeap<T = undefined> {
-  private data: HeapElement<T>[];
+export class MinHeap<DataType = undefined> {
+  private data: HeapElement<DataType>[];
   public length: number;
 
   constructor() {
@@ -12,13 +9,13 @@ export class MinHeap<T = undefined> {
     this.length = 0;
   }
 
-  insert(value: number, data?: T): void {
+  insert(value: number, data?: DataType): void {
     this.data[this.length] = { value, data };
     this.heapifyUp(this.length); // Bubble up this new value
     this.length++;
   }
 
-  pop(): HeapElement<T> {
+  pop(): HeapElement<DataType> {
     if (this.length === 0) {
       return null;
     }
@@ -31,7 +28,7 @@ export class MinHeap<T = undefined> {
       return minElement;
     }
 
-    // Take bottom most value and move it up to the dop, then heapify down
+    // Take bottom most value and move it up to the top, then heapify down
     this.data[0] = this.data[this.length];
 
     this.heapifyDown(0);
