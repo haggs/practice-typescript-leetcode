@@ -62,7 +62,7 @@ export class MazeNavigator {
 
   step(): void {
     if (this.canStep()) {
-      this.pos = this.availableSteps.pop();
+      this.pos = this.availableSteps.pop() as Point;
       this.markSeen(this.pos);
       this.addAvailableSteps();
     }
@@ -91,9 +91,5 @@ export class MazeNavigator {
       str += row + '\n';
     }
     return str;
-  }
-
-  print(): void {
-    console.log(this.renderMaze());
   }
 }

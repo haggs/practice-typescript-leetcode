@@ -15,7 +15,7 @@ export class MinHeap<DataType = undefined> {
     this.length++;
   }
 
-  pop(): HeapElement<DataType> {
+  pop(): HeapElement<DataType> | null {
     if (this.length === 0) {
       return null;
     }
@@ -53,7 +53,7 @@ export class MinHeap<DataType = undefined> {
     }
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private heapifyDown(idx: number): void {
     if (idx >= this.length) {
       return;
@@ -88,7 +88,7 @@ export class MinHeap<DataType = undefined> {
       this.data[rightChildIdx] = elementToHeapifyDown;
       this.heapifyDown(rightChildIdx);
     }
-  }
+  } /* c8 ignore stop */
 
   private parent(idx: number): number {
     return Math.floor((idx - 1) / 2);

@@ -23,11 +23,7 @@ export class MinHeapTree<DataType = undefined> {
       const queue = [this.head];
 
       while (queue.length) {
-        const currentNode = queue.shift();
-
-        if (!currentNode) {
-          return;
-        }
+        const currentNode = queue.shift() as BinaryNode<number, DataType>;
 
         if (!currentNode.left) {
           // here's our spot
@@ -97,7 +93,7 @@ export class MinHeapTree<DataType = undefined> {
     }
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
   private heapifyDown(currentNode: BinaryNode<number, DataType> | null): void {
     if (!currentNode) {
       return;
@@ -127,19 +123,16 @@ export class MinHeapTree<DataType = undefined> {
       this.swapNodeData(rightChild, currentNode);
       this.heapifyDown(rightChild);
     }
-  }
+  } /* c8 ignore stop */
 
-  /* istanbul ignore next */
   private removeNode(node: BinaryNode<number, DataType>): void {
-    if (!node.parent) {
-      return;
-    }
-
     const parentNode = node.parent;
-    if (parentNode.left === node) {
-      parentNode.left = null;
-    } else if (parentNode.right === node) {
-      parentNode.right = null;
+    if (parentNode) {
+      if (parentNode.left === node) {
+        parentNode.left = null;
+      } else if (parentNode.right === node) {
+        parentNode.right = null;
+      }
     }
   }
 
