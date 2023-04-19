@@ -1,8 +1,9 @@
 import { MinHeap } from './MinHeap.js';
+import { describe, it } from 'vitest';
 
-describe('MinHeap', () => {
-  describe('pop', () => {
-    it('always gives the minimum value', () => {
+describe.concurrent('MinHeap', async () => {
+  describe.concurrent('pop', async () => {
+    it.concurrent('always gives the minimum value', async ({ expect }) => {
       const heap = new MinHeap();
       heap.insert(100);
       heap.insert(0);
@@ -14,9 +15,12 @@ describe('MinHeap', () => {
       expect(results).toEqual(expected);
     });
 
-    it('returns null when there is nothing in the heap', () => {
-      const heap = new MinHeap();
-      expect(heap.pop()).toBeNull();
-    });
+    it.concurrent(
+      'returns null when there is nothing in the heap',
+      async ({ expect }) => {
+        const heap = new MinHeap();
+        expect(heap.pop()).toBeNull();
+      },
+    );
   });
 });

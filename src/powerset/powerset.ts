@@ -11,7 +11,7 @@ export function powerset(input: number[]): number[][] {
 
   const last = input.slice(-1);
   const powersetOfAllButLast = powerset(input.slice(0, -1));
-  const withLastAdded = powersetOfAllButLast.map(set => [...set, ...last])
+  const withLastAdded = powersetOfAllButLast.map((set) => [...set, ...last]);
 
   return [...powersetOfAllButLast, ...withLastAdded];
 }

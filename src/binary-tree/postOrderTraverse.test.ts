@@ -1,8 +1,9 @@
 import { BinaryNode } from '../common/BinaryNode.js';
 import { postOrderTraverse } from './postOrderTraverse.js';
+import { describe, it } from 'vitest';
 
-describe('postOrderTraverse', () => {
-  it('traverses in the correct order', () => {
+describe.concurrent('postOrderTraverse', async () => {
+  it.concurrent('traverses in the correct order', async ({ expect }) => {
     /**
      *         a
      *        / \

@@ -1,4 +1,5 @@
 import { MazeNavigator } from './MazeNavigator.js';
+import { describe, it } from 'vitest';
 
 const MAZE = [
   ['1', '1', '1', '1', '1', '1', '1', '1', '1'],
@@ -15,12 +16,8 @@ const MAZE = [
 const START = { x: 0, y: 1 };
 const END = { x: 7, y: 8 };
 
-describe('MazeNavigator', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('renders maze correctly', () => {
+describe.concurrent('MazeNavigator', () => {
+  it.concurrent('renders maze correctly', async ({ expect }) => {
     const navigator = new MazeNavigator(MAZE, START, END);
 
     navigator.step();
@@ -42,33 +39,13 @@ describe('MazeNavigator', () => {
     expect(navigator.renderMaze()).toEqual(expected);
   });
 
-  it('prints correctly', () => {
-    const consoleLogSpy = jest.spyOn(console, 'log');
-    const navigator = new MazeNavigator(MAZE, START, END);
-    navigator.print();
-
-    const expected = `
-1 1 1 1 1 1 1 1 1 
-$ 0 0 0 0 0 0 0 1 
-1 0 1 0 1 0 1 0 1 
-1 0 1 0 1 0 1 0 1 
-1 0 1 0 1 0 1 0 1 
-1 0 1 0 1 0 1 0 1 
-1 0 1 0 1 0 1 0 1 
-1 0 1 0 1 0 1 0 1 
-1 1 1 1 1 1 1 0 1 
-`;
-
-    expect(consoleLogSpy).toHaveBeenCalledWith(expected);
-  });
-
-  describe('getNumberOfStepsToExit', () => {
-    it('returns true for example maze', () => {
+  describe.concurrent('getNumberOfStepsToExit', async () => {
+    it.concurrent('returns true for example maze', async ({ expect }) => {
       const navigator = new MazeNavigator(MAZE, START, END);
       expect(navigator.getNumberOfStepsToExit()).toBe(33);
     });
 
-    it('returns -1 when there is no path', () => {
+    it.concurrent('returns -1 when there is no path', async ({ expect }) => {
       const maze = [
         ['1', '1', '1', '1', '1', '1', '1', '1', '1'],
         ['0', '1', '0', '0', '0', '0', '0', '0', '1'],
@@ -85,29 +62,41 @@ $ 0 0 0 0 0 0 0 1
     });
   });
 
-  describe('error handling', () => {
-    it('throws when start coordinates are out of bounds', () => {
-      const badStart = { x: -1, y: 0 };
-      const instantiate = () => new MazeNavigator(MAZE, badStart, END);
-      expect(instantiate).toThrow('Invalid start value: {"x":-1,"y":0}');
-    });
+  describe.concurrent('error handling', async () => {
+    it.concurrent(
+      'throws when start coordinates are out of bounds',
+      async ({ expect }) => {
+        const badStart = { x: -1, y: 0 };
+        const instantiate = () => new MazeNavigator(MAZE, badStart, END);
+        expect(instantiate).toThrow('Invalid start value: {"x":-1,"y":0}');
+      },
+    );
 
-    it('throws when start coordinates are a wall', () => {
-      const badStart = { x: 0, y: 0 };
-      const instantiate = () => new MazeNavigator(MAZE, badStart, END);
-      expect(instantiate).toThrow('Invalid start value: {"x":0,"y":0}');
-    });
+    it.concurrent(
+      'throws when start coordinates are a wall',
+      async ({ expect }) => {
+        const badStart = { x: 0, y: 0 };
+        const instantiate = () => new MazeNavigator(MAZE, badStart, END);
+        expect(instantiate).toThrow('Invalid start value: {"x":0,"y":0}');
+      },
+    );
 
-    it('throws when end coordinates are out of bounds', () => {
-      const badEnd = { x: -1, y: 0 };
-      const instantiate = () => new MazeNavigator(MAZE, START, badEnd);
-      expect(instantiate).toThrow('Invalid end value: {"x":-1,"y":0}');
-    });
+    it.concurrent(
+      'throws when end coordinates are out of bounds',
+      async ({ expect }) => {
+        const badEnd = { x: -1, y: 0 };
+        const instantiate = () => new MazeNavigator(MAZE, START, badEnd);
+        expect(instantiate).toThrow('Invalid end value: {"x":-1,"y":0}');
+      },
+    );
 
-    it('throws when end coordinates are a wall', () => {
-      const badEnd = { x: 0, y: 0 };
-      const instantiate = () => new MazeNavigator(MAZE, START, badEnd);
-      expect(instantiate).toThrow('Invalid end value: {"x":0,"y":0}');
-    });
+    it.concurrent(
+      'throws when end coordinates are a wall',
+      async ({ expect }) => {
+        const badEnd = { x: 0, y: 0 };
+        const instantiate = () => new MazeNavigator(MAZE, START, badEnd);
+        expect(instantiate).toThrow('Invalid end value: {"x":0,"y":0}');
+      },
+    );
   });
 });

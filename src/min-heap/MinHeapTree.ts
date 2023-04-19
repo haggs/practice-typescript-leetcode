@@ -25,6 +25,10 @@ export class MinHeapTree<DataType = undefined> {
       while (queue.length) {
         const currentNode = queue.shift();
 
+        if (!currentNode) {
+          return;
+        }
+
         if (!currentNode.left) {
           // here's our spot
           currentNode.left = newNode;
@@ -45,7 +49,7 @@ export class MinHeapTree<DataType = undefined> {
     }
   }
 
-  pop(): HeapElement<DataType> {
+  pop(): HeapElement<DataType> | null {
     if (!this.head) {
       return null;
     }
@@ -61,7 +65,7 @@ export class MinHeapTree<DataType = undefined> {
     }
 
     // BFS for last node, move it to head, then heapify down
-    const queue = [this.head];
+    const queue: (BinaryNode<number, DataType> | null)[] = [this.head];
 
     let lastNode = this.head;
     while (queue.length) {
