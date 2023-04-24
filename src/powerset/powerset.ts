@@ -9,9 +9,9 @@ export function powerset(input: number[]): number[][] {
   // powerset([1,2]) with 3 added to each result = [[3], [1, 3], [2, 3], [1,2,3]]
   // powerset([1, 2, 3]) = [[], [1], [2], [1,2], [3], [1, 3], [2, 3], [1,2,3]]
 
-  const last = input.slice(-1);
+  const last = input[input.length - 1];
   const powersetOfAllButLast = powerset(input.slice(0, -1));
-  const withLastAdded = powersetOfAllButLast.map((set) => [...set, ...last]);
+  const withLastAdded = powersetOfAllButLast.map((set) => [...set, last]);
 
   return [...powersetOfAllButLast, ...withLastAdded];
 }
